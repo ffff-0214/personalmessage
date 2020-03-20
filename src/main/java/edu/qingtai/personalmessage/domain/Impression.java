@@ -1,8 +1,9 @@
 package edu.qingtai.personalmessage.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Impression {
+public class Impression implements Serializable {
     private String uuid;
 
     private String position;

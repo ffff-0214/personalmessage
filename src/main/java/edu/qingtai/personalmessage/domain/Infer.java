@@ -1,8 +1,9 @@
 package edu.qingtai.personalmessage.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Infer {
+public class Infer implements Serializable {
     private String uuid;
 
     private String title;

@@ -1,8 +1,9 @@
 package edu.qingtai.personalmessage.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Interview {
+public class Interview implements Serializable {
     private String uuid;
 
     private String title;
