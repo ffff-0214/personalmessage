@@ -27,4 +27,15 @@ public class ImpressionServiceImpl implements ImpressionService{
         }
         return impressionMapper.selectImpressionByUuidlist(uuidList);
     }
+
+    @Override
+    public void handleImpression(Impression impression){
+        if(impression.getFavorite() == null){
+            impressionMapper.deleteByPrimaryKey(impression.getUuid());
+        }else if(impression.getCompany() == null){
+            impressionMapper.updateByPrimaryKeySelective(impression);
+        }else{
+            impressionMapper.insert(impression);
+        }
+    }
 }

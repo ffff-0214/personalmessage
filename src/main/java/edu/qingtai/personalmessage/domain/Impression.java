@@ -22,6 +22,8 @@ public class Impression implements Serializable {
 
     private Integer truth;
 
+    private Integer favorite;
+
     private String content;
 
     public String getUuid() {
@@ -94,6 +96,14 @@ public class Impression implements Serializable {
 
     public void setTruth(Integer truth) {
         this.truth = truth;
+    }
+
+    public Integer getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Integer favorite) {
+        this.favorite = favorite;
     }
 
     public String getContent() {

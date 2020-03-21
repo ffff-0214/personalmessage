@@ -28,4 +28,14 @@ public class InferServiceImpl implements InferService{
         return inferMapper.selectInferByUuidlist(uuidList);
     }
 
+    @Override
+    public void handleInfer(Infer infer){
+        if(infer.getFavorite() == null){
+            inferMapper.deleteByPrimaryKey(infer.getUuid());
+        }else if(infer.getTitle() == null){
+            inferMapper.updateByPrimaryKeySelective(infer);
+        }else{
+            inferMapper.insert(infer);
+        }
+    }
 }

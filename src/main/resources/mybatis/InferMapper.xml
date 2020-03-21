@@ -284,6 +284,289 @@
       favorite = #{favorite,jdbcType=INTEGER}
     where uuid = #{uuid,jdbcType=CHAR}
   </update>
+  <resultMap id="BaseResultMap" type="edu.qingtai.personalmessage.domain.Infer">
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="images" jdbcType="VARCHAR" property="images" />
+    <result column="insertTime" jdbcType="DATE" property="inserttime" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="favorite" jdbcType="INTEGER" property="favorite" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="edu.qingtai.personalmessage.domain.Infer">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    uuid, title, images, insertTime, label, favorite
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="edu.qingtai.personalmessage.domain.InferExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from infer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="edu.qingtai.personalmessage.domain.InferExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from infer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from infer
+    where uuid = #{uuid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from infer
+    where uuid = #{uuid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.qingtai.personalmessage.domain.InferExample">
+    delete from infer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.qingtai.personalmessage.domain.Infer">
+    insert into infer (uuid, title, images, 
+      insertTime, label, favorite, 
+      content)
+    values (#{uuid,jdbcType=CHAR}, #{title,jdbcType=VARCHAR}, #{images,jdbcType=VARCHAR}, 
+      #{inserttime,jdbcType=DATE}, #{label,jdbcType=VARCHAR}, #{favorite,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.qingtai.personalmessage.domain.Infer">
+    insert into infer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="images != null">
+        images,
+      </if>
+      <if test="inserttime != null">
+        insertTime,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+      <if test="favorite != null">
+        favorite,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null">
+        #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null">
+        #{inserttime,jdbcType=DATE},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="favorite != null">
+        #{favorite,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.qingtai.personalmessage.domain.InferExample" resultType="java.lang.Long">
+    select count(*) from infer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update infer
+    <set>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.images != null">
+        images = #{record.images,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inserttime != null">
+        insertTime = #{record.inserttime,jdbcType=DATE},
+      </if>
+      <if test="record.label != null">
+        label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.favorite != null">
+        favorite = #{record.favorite,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update infer
+    set uuid = #{record.uuid,jdbcType=CHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      images = #{record.images,jdbcType=VARCHAR},
+      insertTime = #{record.inserttime,jdbcType=DATE},
+      label = #{record.label,jdbcType=VARCHAR},
+      favorite = #{record.favorite,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update infer
+    set uuid = #{record.uuid,jdbcType=CHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      images = #{record.images,jdbcType=VARCHAR},
+      insertTime = #{record.inserttime,jdbcType=DATE},
+      label = #{record.label,jdbcType=VARCHAR},
+      favorite = #{record.favorite,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.qingtai.personalmessage.domain.Infer">
+    update infer
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null">
+        images = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null">
+        insertTime = #{inserttime,jdbcType=DATE},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="favorite != null">
+        favorite = #{favorite,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="edu.qingtai.personalmessage.domain.Infer">
+    update infer
+    set title = #{title,jdbcType=VARCHAR},
+      images = #{images,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=DATE},
+      label = #{label,jdbcType=VARCHAR},
+      favorite = #{favorite,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.qingtai.personalmessage.domain.Infer">
+    update infer
+    set title = #{title,jdbcType=VARCHAR},
+      images = #{images,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=DATE},
+      label = #{label,jdbcType=VARCHAR},
+      favorite = #{favorite,jdbcType=INTEGER}
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
 
   <select id="selectUuidByPageIndex" resultType="String">
     select uuid from infer order by inserttime DESC limit #{startIndex}, #{pageSize}
@@ -291,7 +574,7 @@
 
   <select id="selectInferByUuidlist" resultType="Infer">
     select * from infer where uuid in
-    <foreach collection="uuidList" item="uuid" open="(" separator="," close=")">
+    <foreach close=")" collection="uuidList" item="uuid" open="(" separator=",">
       #{uuid}
     </foreach>
   </select>

@@ -27,4 +27,15 @@ public class InterviewServiceImpl implements InterviewService{
         }
         return interviewMapper.selectInterviewByUuidlist(uuidList);
     }
+
+    @Override
+    public void handleInterview(Interview interview){
+        if(interview.getFavorite() == null){
+            interviewMapper.deleteByPrimaryKey(interview.getUuid());
+        }else if(interview.getTitle() == null){
+            interviewMapper.updateByPrimaryKeySelective(interview);
+        }else{
+            interviewMapper.insert(interview);
+        }
+    }
 }

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface InferService {
     List<Infer> queryInfers(int pageIndex);
+    void handleInfer(Infer infer);
 }

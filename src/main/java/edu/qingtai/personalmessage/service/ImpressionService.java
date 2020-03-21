@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ImpressionService {
     List<Impression> queryImpressions(int PageIndex);
+    void handleImpression(Impression impression);
 }
